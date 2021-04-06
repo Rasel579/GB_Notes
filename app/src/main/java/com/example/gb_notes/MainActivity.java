@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+
 import android.os.Bundle;
 
 import com.example.gb_notes.bussiness_logic.GetPublisher;
@@ -16,8 +17,8 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ContentNotesFragment contentNotesFragment = new ContentNotesFragment();
-        publisher.subscribe(contentNotesFragment);
+//        ContentNotesFragment contentNotesFragment = new ContentNotesFragment();
+//        publisher.subscribe(contentNotesFragment);
 
 
 

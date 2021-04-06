@@ -75,11 +75,11 @@ public class InputToDoListFragment extends Fragment {
             public void onClick(View view) {
                 String nameNote = nameEditText.getText().toString();
                 String descriptionNote = descriptionData.getText().toString();
-                publisher.notify(new Note(nameNote, descriptionNote));
-                ContentNotesFragment contentNotesFragment = ContentNotesFragment.newInstance();
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+//                publisher.notify(new Note(nameNote, descriptionNote));
+                ContentNotesFragment contentNotesFragment = ContentNotesFragment.newInstance(new Note(nameNote, descriptionNote));
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.contentListFragment,contentNotesFragment);
+                fragmentTransaction.replace(R.id.contentListFragment,contentNotesFragment);
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.commit();
 
