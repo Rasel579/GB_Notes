@@ -73,16 +73,7 @@ public class InputToDoListFragment extends Fragment {
         acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nameNote = nameEditText.getText().toString();
-                String descriptionNote = descriptionData.getText().toString();
-//                publisher.notify(new Note(nameNote, descriptionNote));
-                ContentNotesFragment contentNotesFragment = ContentNotesFragment.newInstance(new Note(nameNote, descriptionNote));
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.contentListFragment,contentNotesFragment);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.commit();
-
+                //Заглушка
             }
         });
         return view;

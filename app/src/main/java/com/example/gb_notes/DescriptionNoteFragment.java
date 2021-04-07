@@ -21,10 +21,9 @@ public class DescriptionNoteFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_NOTE = "note";
-    private static final String ARG_PARAM2 = "param2";
+
 
     // TODO: Rename and change types of parameters
-    private int index;
     private Note note;
 
     public DescriptionNoteFragment() {
@@ -60,13 +59,10 @@ public class DescriptionNoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_description_note, container, false);
-        if (savedInstanceState != null) {
-            note = savedInstanceState.getParcelable(ARG_NOTE);
-            TextView nameDescription = view.findViewById(R.id.nameOfNoteForDescription);
-            TextView descriptionNote = view.findViewById(R.id.descriptionNote);
-            nameDescription.setText(note.getName());
-            descriptionNote.setText(note.getDescription());
-        }
+        TextView nameTextView = view.findViewById(R.id.nameOfNoteForDescription);
+        TextView textDescriptionView = view.findViewById(R.id.descriptionNote);
+        nameTextView.setText(note.getName());
+        textDescriptionView.setText(note.getDescription());
         return view;
     }
 }

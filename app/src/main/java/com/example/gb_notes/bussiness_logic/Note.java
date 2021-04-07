@@ -10,18 +10,14 @@ public class Note implements Parcelable {
     private String name;
     private String description;
     private Boolean isDone;
-    public Note(String name, String description){
-        this.date = new Date();
-        this.name = name;
-        this.description = description;
-        this.isDone = false;
-    }
+    private int index;
 
     protected Note(Parcel in) {
         name = in.readString();
         description = in.readString();
         byte tmpIsDone = in.readByte();
         isDone = tmpIsDone == 0 ? null : tmpIsDone == 1;
+        index = in.readInt();
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -35,6 +31,22 @@ public class Note implements Parcelable {
             return new Note[size];
         }
     };
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public Note(String name, String description, int index ){
+        this.date = new Date();
+        this.index = index;
+        this.name = name;
+        this.description = description;
+        this.isDone = false;
+    }
 
     public String getName() {
         return name;
@@ -78,5 +90,6 @@ public class Note implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(description);
         parcel.writeByte((byte) (isDone == null ? 0 : isDone ? 1 : 2));
+        parcel.writeInt(index);
     }
 }

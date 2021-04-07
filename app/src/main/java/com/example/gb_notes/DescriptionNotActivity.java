@@ -8,9 +8,9 @@ import android.os.Bundle;
 
 import com.example.gb_notes.bussiness_logic.Note;
 
-public class DescriptionNoteaActiviy extends AppCompatActivity {
+public class DescriptionNotActivity extends AppCompatActivity {
     private Note note;
-    private String NOTE ="Note";
+    public static  String NOTE ="Note";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,12 +20,11 @@ public class DescriptionNoteaActiviy extends AppCompatActivity {
             return;
         }
 
-        if (savedInstanceState != null){
-            DescriptionNoteFragment descriptionNoteFragment = new DescriptionNoteFragment();
-            note = savedInstanceState.getParcelable(NOTE);
-            descriptionNoteFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentDescription, descriptionNoteFragment).commit();
+        if (savedInstanceState == null){
+           DescriptionNoteFragment descriptionNoteFragment = new DescriptionNoteFragment();
+           descriptionNoteFragment.setArguments(getIntent().getExtras());
+           getSupportFragmentManager().beginTransaction().replace(R.id.fragmentDescriptionForLayout, descriptionNoteFragment)
+                   .commit();
         }
     }
 }
