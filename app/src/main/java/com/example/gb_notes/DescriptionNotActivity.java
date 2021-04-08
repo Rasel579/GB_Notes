@@ -2,6 +2,7 @@ package com.example.gb_notes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.SearchRecentSuggestionsProvider;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import com.example.gb_notes.bussiness_logic.Note;
 public class DescriptionNotActivity extends AppCompatActivity {
     private Note note;
     public static  String ARG_NOTE ="Note";
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

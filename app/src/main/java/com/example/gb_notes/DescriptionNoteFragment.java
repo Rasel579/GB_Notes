@@ -2,6 +2,7 @@ package com.example.gb_notes;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -45,9 +46,11 @@ public class DescriptionNoteFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println(getArguments() + "onCreate");
         if (getArguments() != null) {
             note = getArguments().getParcelable(ARG_NOTE);
             System.out.println(note + "1111");
@@ -65,15 +68,16 @@ public class DescriptionNoteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         View view = getView();
-        if(getArguments() == null){
-            note = new Note(getResources().getStringArray(R.array.noteName)[0], getResources().getStringArray(R.array.noteDescription)[0], 0);
-        }
-        System.out.println(note);
+        System.out.println(getArguments() + " preOnCreateView");
         TextView nameTextView = view.findViewById(R.id.nameOfNoteForDescription);
         TextView textDescriptionView = view.findViewById(R.id.textDescription);
-        nameTextView.setText(note.getName());
-        textDescriptionView.setText(note.getDescription());
-
+        if(getArguments() == null){
+            //nothing
+        } else {
+            nameTextView.setText(note.getName());
+            textDescriptionView.setText(note.getDescription());
+        }
 
     }
+
 }

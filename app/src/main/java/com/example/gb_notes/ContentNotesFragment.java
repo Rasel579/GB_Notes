@@ -27,6 +27,7 @@ import com.example.gb_notes.bussiness_logic.Note;
 public class ContentNotesFragment extends Fragment {
 
     private static final String ARG_NOTE = "Note";
+    private final int SIZE = 3;
     public static Note currentNote;
     private boolean isLandscape;
 
@@ -55,7 +56,7 @@ public class ContentNotesFragment extends Fragment {
         LinearLayout linearLayout = (LinearLayout) view;
         String[] notes = getResources().getStringArray(R.array.noteName);
         String[] data = getResources().getStringArray(R.array.dateCreated);
-        for (int i = 0; i < notes.length ; i++) {
+        for (int i = 0; i < SIZE ; i++) {
             TextView textView = new TextView(getContext());
             TextView dataText = new TextView(getContext());
             textView.setText(notes[i]);
@@ -119,7 +120,7 @@ public class ContentNotesFragment extends Fragment {
 
     private void showPortDescription(Note currentNote) {
         Intent intent = new Intent();
-        intent.setClass(requireActivity(), DescriptionNotActivity.class);
+        intent.setClass(getActivity(), DescriptionNotActivity.class);
         intent.putExtra(ARG_NOTE, currentNote);
         startActivity(intent);
 
