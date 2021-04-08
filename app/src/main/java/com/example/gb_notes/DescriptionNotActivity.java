@@ -10,7 +10,7 @@ import com.example.gb_notes.bussiness_logic.Note;
 
 public class DescriptionNotActivity extends AppCompatActivity {
     private Note note;
-    public static  String NOTE ="Note";
+    public static  String ARG_NOTE ="Note";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +22,7 @@ public class DescriptionNotActivity extends AppCompatActivity {
 
         if (savedInstanceState == null){
            DescriptionNoteFragment descriptionNoteFragment = new DescriptionNoteFragment();
+            System.out.println(getIntent().getExtras().get(ARG_NOTE) + "activity intent");
            descriptionNoteFragment.setArguments(getIntent().getExtras());
            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentDescriptionForLayout, descriptionNoteFragment)
                    .commit();

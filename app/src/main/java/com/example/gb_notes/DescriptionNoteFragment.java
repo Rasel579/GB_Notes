@@ -2,6 +2,7 @@ package com.example.gb_notes;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,10 +21,7 @@ public class DescriptionNoteFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_NOTE = "note";
-
-
-    // TODO: Rename and change types of parameters
+    private static final String ARG_NOTE = "Note";
     private Note note;
 
     public DescriptionNoteFragment() {
@@ -42,6 +40,7 @@ public class DescriptionNoteFragment extends Fragment {
         DescriptionNoteFragment fragment = new DescriptionNoteFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_NOTE, note);
+        System.out.println(note + " newInstance");
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,18 +50,30 @@ public class DescriptionNoteFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             note = getArguments().getParcelable(ARG_NOTE);
+            System.out.println(note + "1111");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_description_note, container, false);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        View view = getView();
+        if(getArguments() == null){
+            note = new Note(getResources().getStringArray(R.array.noteName)[0], getResources().getStringArray(R.array.noteDescription)[0], 0);
+        }
+        System.out.println(note);
         TextView nameTextView = view.findViewById(R.id.nameOfNoteForDescription);
-        TextView textDescriptionView = view.findViewById(R.id.descriptionNote);
+        TextView textDescriptionView = view.findViewById(R.id.textDescription);
         nameTextView.setText(note.getName());
         textDescriptionView.setText(note.getDescription());
-        return view;
+
+
     }
 }

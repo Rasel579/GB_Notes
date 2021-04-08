@@ -12,20 +12,20 @@
         android:id="@+id/NoteNameTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="@dimen/marginTop"
         android:hint="@string/NoteNameTextInput"
          />
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/descriptionNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/marginTop"
         android:hint="@string/descriptionTextInput"/>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/acceptBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="@dimen/marginTop"
         android:text="@string/applyTxtBtn"/>
 
 

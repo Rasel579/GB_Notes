@@ -26,7 +26,7 @@ import com.example.gb_notes.bussiness_logic.Note;
  */
 public class ContentNotesFragment extends Fragment {
 
-    private static final String NOTES = "CurrentNote";
+    private static final String ARG_NOTE = "Note";
     public static Note currentNote;
     private boolean isLandscape;
 
@@ -47,6 +47,8 @@ public class ContentNotesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view);
+
+
     }
 
     private void initList(View view) {
@@ -62,7 +64,7 @@ public class ContentNotesFragment extends Fragment {
             dataText.setTextSize(20);
             linearLayout.addView(dataText);
             linearLayout.addView(textView);
-            final int  index = i;
+            int  index = i;
             textView.setOnClickListener(view1 -> {
                 currentNote = new Note(getResources().getStringArray(R.array.noteName)[index], getResources().getStringArray(R.array.noteDescription)[index], index);
                 showDescriptionNote(currentNote);
@@ -72,21 +74,24 @@ public class ContentNotesFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelable(NOTES, currentNote);
+        outState.putParcelable(ARG_NOTE, currentNote);
         super.onSaveInstanceState(outState);
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         if (savedInstanceState != null){
-            currentNote = savedInstanceState.getParcelable(NOTES);
+            currentNote = savedInstanceState.getParcelable(ARG_NOTE);
         } else {
             currentNote = new Note(getResources().getStringArray(R.array.noteName)[0], getResources().getStringArray(R.array.noteDescription)[0], 0);
         }
 
         if (isLandscape){
+            System.out.println("LAAAANf");
             showLandDescription(currentNote);
         }
 
@@ -95,6 +100,7 @@ public class ContentNotesFragment extends Fragment {
     private void showDescriptionNote(Note currentNote) {
         if (isLandscape){
             showLandDescription(currentNote);
+
         } else{
             showPortDescription(currentNote);
         }
@@ -103,9 +109,9 @@ public class ContentNotesFragment extends Fragment {
 
     private void showLandDescription(Note currentNote) {
         DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(currentNote);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.descriptionNoteFragment, descriptionNoteFragment);
+        fragmentTransaction.replace(R.id.descriptionNoteFrg, descriptionNoteFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
 
@@ -113,8 +119,8 @@ public class ContentNotesFragment extends Fragment {
 
     private void showPortDescription(Note currentNote) {
         Intent intent = new Intent();
-        intent.setClass(getActivity(), DescriptionNotActivity.class);
-        intent.putExtra(DescriptionNotActivity.NOTE, currentNote);
+        intent.setClass(requireActivity(), DescriptionNotActivity.class);
+        intent.putExtra(ARG_NOTE, currentNote);
         startActivity(intent);
 
     }

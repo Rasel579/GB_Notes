@@ -1,16 +1,14 @@
 package com.example.gb_notes.bussiness_logic;
 
+
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.Date;
 
 public class Note implements Parcelable {
     private Date date;
     private String name;
     private String description;
-    private Boolean isDone;
-    private int index;
 
     protected Note(Parcel in) {
         name = in.readString();
@@ -32,20 +30,12 @@ public class Note implements Parcelable {
         }
     };
 
-    public int getIndex() {
-        return index;
+    public Date getDate() {
+        return date;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public Note(String name, String description, int index ){
-        this.date = new Date();
-        this.index = index;
-        this.name = name;
-        this.description = description;
-        this.isDone = false;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getName() {
@@ -72,13 +62,26 @@ public class Note implements Parcelable {
         isDone = done;
     }
 
-    public Date getDate() {
-        return date;
+    public int getIndex() {
+        return index;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setIndex(int index) {
+        this.index = index;
     }
+
+    private Boolean isDone;
+    private int index;
+
+
+    public Note(String name, String description, int index ){
+        this.date = new Date();
+        this.index = index;
+        this.name = name;
+        this.description = description;
+        this.isDone = false;
+    }
+
 
     @Override
     public int describeContents() {
