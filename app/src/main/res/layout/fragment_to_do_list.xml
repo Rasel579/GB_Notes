@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragmentInputList"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InputToDoListFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/NoteNameTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop"
+        android:hint="@string/NoteNameTextInput"
+         />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/descriptionNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop"
+        android:hint="@string/descriptionTextInput"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/acceptBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop"
+        android:text="@string/applyTxtBtn"/>
+
+
+</LinearLayout>

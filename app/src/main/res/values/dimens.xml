@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginTop">1dp</dimen>
+    <dimen name="textSize">20sp</dimen>
+    <dimen name="marginTopToDoListHor">0dp</dimen>
+</resources>
