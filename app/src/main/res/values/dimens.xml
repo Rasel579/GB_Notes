@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginTop">1dp</dimen>
+    <dimen name="textSize">20sp</dimen>
+    <dimen name="marginTopToDoListHor">0dp</dimen>
+    <dimen name="nav_header_height">400dp</dimen>
+    <dimen name="nav_bar_header_size">30sp</dimen>
+    <dimen name="nav_header_marginTop_text">10dp</dimen>
+
+</resources>

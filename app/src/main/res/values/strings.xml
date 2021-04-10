@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">GB_Notes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="NoteNameTextInput">Введите Имя Заметки</string>
+    <string name="descriptionTextInput">Введите задачу</string>
+    <string name="applyTxtBtn">Apply</string>
+    <string name="settingsMenu">Settings</string>
+    <string name="main_menu">Main menu</string>
+    <string name="search">Search</string>
+    <string name="addMenu">Add</string>
+    <string name="resendMenu">re-send</string>
+    <string name="changeMenu">Change</string>
+    <string name="deletePopup">delete</string>
+    <string name="donePopup">Done</string>
+    <string name="showBtn">Show Description</string>
+    <string name="settings_drawer_item">Settings</string>
+    <string name="main_drawer_item">Main</string>
+    <string name="about_drawer_item">About</string>
+    <string name="drawer_navigation_nav_header">Hi, My name is...</string>
+    <string name="open_nav_drawer">Open Navigation ToolBar</string>
+    <string name="close_navigation_toolbar">Close Navigation ToolBar</string>
+    <string name="nav_header_about_profile_text">Something About Me</string>
 </resources>
