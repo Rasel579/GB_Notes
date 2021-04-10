@@ -112,7 +112,7 @@ public class ContentNotesFragment extends Fragment {
         DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(currentNote);
         FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.descriptionNoteFrg, descriptionNoteFragment);
+        fragmentTransaction.replace(R.id.descriptionNoteFrgLand, descriptionNoteFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
 

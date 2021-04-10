@@ -5,4 +5,7 @@
     <string name="NoteNameTextInput">Введите Имя Заметки</string>
     <string name="descriptionTextInput">Введите задачу</string>
     <string name="applyTxtBtn">Apply</string>
+    <string name="settingsMenu">Settings</string>
+    <string name="main_menu">Main menu</string>
+    <string name="search">Search</string>
 </resources>
