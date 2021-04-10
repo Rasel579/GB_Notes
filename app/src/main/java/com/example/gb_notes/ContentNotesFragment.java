@@ -18,12 +18,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gb_notes.bussiness_logic.Note;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -61,7 +65,6 @@ public class ContentNotesFragment extends Fragment {
     private void initList(View view) {
         LinearLayout linearLayout = (LinearLayout) view;
         String[] notes = getResources().getStringArray(R.array.noteName);
-        String[] data = getResources().getStringArray(R.array.dateCreated);
         for (int i = 0; i < SIZE ; i++) {
             TextView textView = new TextView(getContext());
             TextView dataText = new TextView(getContext());
@@ -72,7 +75,7 @@ public class ContentNotesFragment extends Fragment {
             button.setTextSize(12);
             textView.setText(notes[i]);
             textView.setTextSize(20);
-            dataText.setText(data[i]);
+            dataText.setText(String.valueOf(new Date()));
             dataText.setTextSize(20);
             linearLayout.addView(dataText);
             linearLayout.addView(textView);

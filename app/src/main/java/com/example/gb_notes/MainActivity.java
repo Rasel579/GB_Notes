@@ -1,9 +1,11 @@
 package com.example.gb_notes;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,16 +14,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.gb_notes.bussiness_logic.GetPublisher;
 import com.example.gb_notes.bussiness_logic.Publisher;
-
-import java.util.List;
-
-import static androidx.appcompat.widget.SearchView.*;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements GetPublisher {
     private boolean isLandscape;
@@ -30,18 +30,47 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
         initContentNotesFragment(new ContentNotesFragment());
+        initView();
     }
 
     private void initView() {
-        initToolBar();
+        Toolbar toolbar = initToolBar();
+        initDrawer(toolbar);
         isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    private void initToolBar() {
+    private Toolbar initToolBar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        return toolbar;
+    }
+
+    private void initDrawer(Toolbar toolbar) {
+        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.open_nav_drawer, R.string.close_navigation_toolbar);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                 int id = item.getItemId();
+                 switch (id){
+                     case R.id.action_settings_drawer:
+                         addFragment(new SettingsFragment());
+                         drawerLayout.closeDrawer(GravityCompat.START);
+                         return true;
+                     case R.id.action_main_drawer:
+                         addFragment(new ContentNotesFragment());
+                         drawerLayout.closeDrawer(GravityCompat.START);
+                         return true;
+                 }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -91,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
         int viewOrientation = isLandscape ? R.id.contentListFragmentLand : R.id.contentListFragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(viewOrientation, fragment);
+        fragmentTransaction.replace(R.id.contentListFragment, fragment);
         fragmentTransaction.commit();
     }
 
