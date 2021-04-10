@@ -1,6 +1,7 @@
 package com.example.gb_notes;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,10 +12,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gb_notes.bussiness_logic.Note;
 
@@ -41,6 +48,7 @@ public class ContentNotesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_content_notes, container, false);
     }
 
@@ -48,8 +56,6 @@ public class ContentNotesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view);
-
-
     }
 
     private void initList(View view) {
@@ -59,18 +65,48 @@ public class ContentNotesFragment extends Fragment {
         for (int i = 0; i < SIZE ; i++) {
             TextView textView = new TextView(getContext());
             TextView dataText = new TextView(getContext());
+            Button button = new Button(getContext());
+            button.setText(R.string.showBtn);
+            button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary_variant));
+            button.setWidth(view.getWidth()/10);
+            button.setTextSize(12);
             textView.setText(notes[i]);
             textView.setTextSize(20);
             dataText.setText(data[i]);
             dataText.setTextSize(20);
             linearLayout.addView(dataText);
             linearLayout.addView(textView);
+            linearLayout.addView(button);
             int  index = i;
-            textView.setOnClickListener(view1 -> {
+            textView.setOnClickListener(this::initPopup);
+            button.setOnClickListener(view1 -> {
                 currentNote = new Note(getResources().getStringArray(R.array.noteName)[index], getResources().getStringArray(R.array.noteDescription)[index], index);
                 showDescriptionNote(currentNote);
         });
       }
+    }
+
+    private void initPopup(View view1) {
+        Activity activity = requireActivity();
+        PopupMenu popupMenu = new PopupMenu(activity, view1);
+        activity.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            int id = menuItem.getItemId();
+            switch (id){
+                case R.id.changePopup:
+                    Toast.makeText(getContext(), "Change", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.donePopup:
+                    Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+                    return  true;
+                case  R.id.deletePopup:
+                    Toast.makeText(getContext(), "Delete", Toast.LENGTH_SHORT).show();
+                    return true;
+            }
+            return true;
+        });
+        popupMenu.show();
+
     }
 
     @Override
@@ -92,7 +128,6 @@ public class ContentNotesFragment extends Fragment {
         }
 
         if (isLandscape){
-            System.out.println("LAAAANf");
             showLandDescription(currentNote);
         }
 
@@ -126,4 +161,21 @@ public class ContentNotesFragment extends Fragment {
      initFragmentTransaction(currentNote, isLandscape);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.content_fragment_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_add:
+                Toast.makeText(getContext(), "Add", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

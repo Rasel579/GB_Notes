@@ -8,4 +8,10 @@
     <string name="settingsMenu">Settings</string>
     <string name="main_menu">Main menu</string>
     <string name="search">Search</string>
+    <string name="addMenu">Add</string>
+    <string name="resendMenu">re-send</string>
+    <string name="changeMenu">Change</string>
+    <string name="deletePopup">delete</string>
+    <string name="donePopup">Done</string>
+    <string name="showBtn">Show Description</string>
 </resources>

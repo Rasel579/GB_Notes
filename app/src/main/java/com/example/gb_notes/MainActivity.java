@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import java.util.List;
 import static androidx.appcompat.widget.SearchView.*;
 
 public class MainActivity extends AppCompatActivity implements GetPublisher {
+    private boolean isLandscape;
     private Publisher publisher = new Publisher();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
 
     private void initView() {
         initToolBar();
+        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     private void initToolBar() {
@@ -85,9 +88,10 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
     }
 
     private void initFragmentTransaction(Fragment fragment) {
+        int viewOrientation = isLandscape ? R.id.contentListFragmentLand : R.id.contentListFragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contentListFragment, fragment);
+        fragmentTransaction.replace(viewOrientation, fragment);
         fragmentTransaction.commit();
     }
 

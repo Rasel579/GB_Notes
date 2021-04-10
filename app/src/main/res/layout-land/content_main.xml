@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <FrameLayout
-        android:id="@+id/contentListFragment"
+        android:id="@+id/contentListFragmentLand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -19,7 +19,8 @@
         app:layout_constraintRight_toRightOf="@id/descriptionNoteFrgLand"
         app:layout_constraintTop_toTopOf="parent"
          />
-    <fragment
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/descriptionNoteFrgLand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="@+id/contentListFragment"
+        app:layout_constraintLeft_toLeftOf="@+id/contentListFragmentLand"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
