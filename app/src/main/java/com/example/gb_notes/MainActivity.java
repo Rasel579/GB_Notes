@@ -1,10 +1,15 @@
 package com.example.gb_notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.gb_notes.bussiness_logic.GetPublisher;
 import com.example.gb_notes.bussiness_logic.Publisher;
+
+import java.util.List;
 
 import static androidx.appcompat.widget.SearchView.*;
 
@@ -22,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        initContentNotesFragment(new ContentNotesFragment());
     }
 
     private void initView() {
@@ -52,6 +60,36 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
         });
          return  true;
     };
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+         int id = item.getItemId();
+         switch (id){
+             case R.id.settingsMenu:
+                 addFragment(new SettingsFragment());
+                 return  true;
+             case R.id.main_menu:
+                 addFragment(new ContentNotesFragment());
+                 return true;
+         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addFragment(Fragment settingsFragment) {
+        initFragmentTransaction(settingsFragment);
+    }
+
+    private void initContentNotesFragment(Fragment contentNotesFragment) {
+        initFragmentTransaction(contentNotesFragment);
+    }
+
+    private void initFragmentTransaction(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contentListFragment, fragment);
+        fragmentTransaction.commit();
+    }
 
     @Override
     public Publisher getPublisher() {

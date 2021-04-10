@@ -109,21 +109,21 @@ public class ContentNotesFragment extends Fragment {
     }
 
     private void showLandDescription(Note currentNote) {
+        initFragmentTransaction(currentNote, isLandscape);
+    }
+
+    private void initFragmentTransaction(Note currentNote, boolean isLandscape) {
         DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(currentNote);
+        int viewId = isLandscape ? R.id.descriptionNoteFrgLand : R.id.contentListFragment;
         FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.descriptionNoteFrgLand, descriptionNoteFragment);
+        fragmentTransaction.replace(viewId, descriptionNoteFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
-
     }
 
     private void showPortDescription(Note currentNote) {
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), DescriptionNotActivity.class);
-        intent.putExtra(ARG_NOTE, currentNote);
-        startActivity(intent);
-
+     initFragmentTransaction(currentNote, isLandscape);
     }
 
 }
