@@ -14,13 +14,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.gb_notes.bussiness_logic.GetPublisher;
 import com.example.gb_notes.bussiness_logic.Publisher;
+import com.example.gb_notes.ui.ContentNotesFragment;
+import com.example.gb_notes.ui.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements GetPublisher {

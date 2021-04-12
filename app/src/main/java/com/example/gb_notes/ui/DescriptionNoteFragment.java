@@ -1,4 +1,4 @@
-package com.example.gb_notes;
+package com.example.gb_notes.ui;
 
 import android.os.Bundle;
 
@@ -15,7 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gb_notes.bussiness_logic.Note;
+import com.example.gb_notes.R;
+import com.example.gb_notes.data.Note;
 
 /**
  * A simple {@link Fragment} subclass.

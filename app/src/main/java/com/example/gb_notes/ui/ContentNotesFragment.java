@@ -1,15 +1,17 @@
-package com.example.gb_notes;
+package com.example.gb_notes.ui;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,17 +19,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gb_notes.bussiness_logic.Note;
-
-import java.util.Calendar;
-import java.util.Date;
+import com.example.gb_notes.R;
+import com.example.gb_notes.data.Note;
+import com.example.gb_notes.data.NoteSource;
+import com.example.gb_notes.data.NoteSourceImpl;
 
 
 /**
@@ -63,30 +61,24 @@ public class ContentNotesFragment extends Fragment {
     }
 
     private void initList(View view) {
-        LinearLayout linearLayout = (LinearLayout) view;
-        String[] notes = getResources().getStringArray(R.array.noteName);
-        for (int i = 0; i < SIZE ; i++) {
-            TextView textView = new TextView(getContext());
-            TextView dataText = new TextView(getContext());
-            Button button = new Button(getContext());
-            button.setText(R.string.showBtn);
-            button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary_variant));
-            button.setWidth(view.getWidth()/10);
-            button.setTextSize(12);
-            textView.setText(notes[i]);
-            textView.setTextSize(20);
-            dataText.setText(String.valueOf(new Date()));
-            dataText.setTextSize(20);
-            linearLayout.addView(dataText);
-            linearLayout.addView(textView);
-            linearLayout.addView(button);
-            int  index = i;
-            textView.setOnClickListener(this::initPopup);
-            button.setOnClickListener(view1 -> {
-                currentNote = new Note(getResources().getStringArray(R.array.noteName)[index], getResources().getStringArray(R.array.noteDescription)[index], index);
-                showDescriptionNote(currentNote);
+        RecyclerView recyclerView = view.findViewById(R.id.recycle_view_layout);
+        NoteSource noteSource = new NoteSourceImpl(getResources()).init();
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        final ContentNotesAdapter contentNotesAdapter = new ContentNotesAdapter(noteSource);
+        recyclerView.setAdapter(contentNotesAdapter);
+        contentNotesAdapter.setItemClickListener(new ContentNotesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position, int resources) {
+                if (resources == R.id.noteDate){
+                    initPopup(view);
+                } else {
+                    currentNote = noteSource.getNote(position);
+                    showDescriptionNote(currentNote);
+                }
+            }
         });
-      }
     }
 
     private void initPopup(View view1) {
