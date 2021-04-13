@@ -32,4 +32,9 @@ public class NoteSourceImpl implements NoteSource{
     public int size() {
         return noteList.size();
     }
+
+    @Override
+    public void changeNote(Note note, int position) {
+        noteList.set(position, note);
+    }
 }

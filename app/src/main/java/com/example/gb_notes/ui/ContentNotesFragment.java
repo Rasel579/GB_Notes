@@ -63,7 +63,7 @@ public class ContentNotesFragment extends Fragment {
     private void initList(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycle_view_layout);
         NoteSource noteSource = new NoteSourceImpl(getResources()).init();
-        recyclerView.setHasFixedSize(true);
+    //    recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         final ContentNotesAdapter contentNotesAdapter = new ContentNotesAdapter(noteSource);
@@ -72,7 +72,7 @@ public class ContentNotesFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position, int resources) {
                 if (resources == R.id.noteDate){
-                    initPopup(view);
+                    initPopup(view, noteSource.getNote(position), position);
                 } else {
                     currentNote = noteSource.getNote(position);
                     showDescriptionNote(currentNote);
@@ -81,7 +81,7 @@ public class ContentNotesFragment extends Fragment {
         });
     }
 
-    private void initPopup(View view1) {
+    private void initPopup(View view1, Note note, int position) {
         Activity activity = requireActivity();
         PopupMenu popupMenu = new PopupMenu(activity, view1);
         activity.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
@@ -89,7 +89,7 @@ public class ContentNotesFragment extends Fragment {
             int id = menuItem.getItemId();
             switch (id){
                 case R.id.changePopup:
-                    Toast.makeText(getContext(), "Change", Toast.LENGTH_SHORT).show();
+                    showUpdateFragment(note, position);
                     return true;
                 case R.id.donePopup:
                     Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
@@ -102,6 +102,10 @@ public class ContentNotesFragment extends Fragment {
         });
         popupMenu.show();
 
+    }
+
+    private void showUpdateFragment(Note note, int position) {
+        initFragmentTransaction(note, position);
     }
 
     @Override
@@ -149,6 +153,15 @@ public class ContentNotesFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(viewId, descriptionNoteFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.commit();
+    }
+
+    private void  initFragmentTransaction(Note currentNote, int position){
+        UpdateFragment updateFragment = UpdateFragment.newInstance(currentNote, position);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contentListFragment, updateFragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
 

@@ -21,4 +21,5 @@
     <string name="open_nav_drawer">Open Navigation ToolBar</string>
     <string name="close_navigation_toolbar">Close Navigation ToolBar</string>
     <string name="nav_header_about_profile_text">Something About Me</string>
+    <string name="updateBtnText">Update</string>
 </resources>

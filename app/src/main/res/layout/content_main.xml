@@ -8,9 +8,6 @@
     tools:showIn="@layout/app_bar_main"
     tools:context=".MainActivity">
 
-
-
-
     <FrameLayout
         android:orientation="vertical"
         android:id="@+id/contentListFragment"

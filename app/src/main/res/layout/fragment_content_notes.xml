@@ -10,7 +10,7 @@
         android:id="@+id/recycle_view_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem=""/>
+        tools:listitem="@layout/item"/>
 
     <!-- TODO: Update blank fragment layout -->
 

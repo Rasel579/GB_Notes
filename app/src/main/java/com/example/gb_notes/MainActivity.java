@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
     }
 
     private void initFragmentTransaction(Fragment fragment) {
-        int viewOrientation = isLandscape ? R.id.contentListFragmentLand : R.id.contentListFragment;
+        int viewOrientation = isLandscape ? R.id.contentListFragment : R.id.contentListFragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contentListFragment, fragment);
