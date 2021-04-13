@@ -38,7 +38,6 @@ public class DescriptionNoteFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     *
      * @return A new instance of fragment DescriptionNoteFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -77,7 +76,7 @@ public class DescriptionNoteFragment extends Fragment {
         System.out.println(getArguments() + " preOnCreateView");
         TextView nameTextView = view.findViewById(R.id.nameOfNoteForDescription);
         TextView textDescriptionView = view.findViewById(R.id.textDescription);
-        if(getArguments() == null){
+        if (getArguments() == null) {
             //nothing
         } else {
             nameTextView.setText(note.getName());
@@ -95,7 +94,7 @@ public class DescriptionNoteFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.resendMenu:
                 Toast.makeText(getContext(), "Re-send", Toast.LENGTH_SHORT).show();
                 return true;

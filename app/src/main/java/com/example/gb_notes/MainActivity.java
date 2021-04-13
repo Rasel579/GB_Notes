@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity implements GetPublisher {
     private boolean isLandscape;
     private Publisher publisher = new Publisher();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,17 +59,17 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                 int id = item.getItemId();
-                 switch (id){
-                     case R.id.action_settings_drawer:
-                         addFragment(new SettingsFragment());
-                         drawerLayout.closeDrawer(GravityCompat.START);
-                         return true;
-                     case R.id.action_main_drawer:
-                         addFragment(new ContentNotesFragment());
-                         drawerLayout.closeDrawer(GravityCompat.START);
-                         return true;
-                 }
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.action_settings_drawer:
+                        addFragment(new SettingsFragment());
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
+                    case R.id.action_main_drawer:
+                        addFragment(new ContentNotesFragment());
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
+                }
                 return false;
             }
         });
@@ -91,21 +92,23 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
                 return true;
             }
         });
-         return  true;
-    };
+        return true;
+    }
+
+    ;
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-         int id = item.getItemId();
-         switch (id){
-             case R.id.settingsMenu:
-                 addFragment(new SettingsFragment());
-                 return  true;
-             case R.id.main_menu:
-                 addFragment(new ContentNotesFragment());
-                 return true;
-         }
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.settingsMenu:
+                addFragment(new SettingsFragment());
+                return true;
+            case R.id.main_menu:
+                addFragment(new ContentNotesFragment());
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -14,22 +14,22 @@
         android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintVertical_bias="0.7"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/descriptionNoteFrgLand"
         app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintVertical_bias="0.7" />
+
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/descriptionNoteFrgLand"
+        android:name="com.example.gb_notes.DescriptionNoteFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.example.gb_notes.DescriptionNoteFragment"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintLeft_toLeftOf="@+id/contentListFragment"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

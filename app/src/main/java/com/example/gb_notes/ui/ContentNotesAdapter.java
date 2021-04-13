@@ -20,7 +20,7 @@ public class ContentNotesAdapter extends RecyclerView.Adapter<ContentNotesAdapte
     private NoteSource noteSource;
     private OnItemClickListener itemClickListener;
 
-    public ContentNotesAdapter(NoteSource noteSource){
+    public ContentNotesAdapter(NoteSource noteSource) {
         this.noteSource = noteSource;
     }
 
@@ -42,10 +42,10 @@ public class ContentNotesAdapter extends RecyclerView.Adapter<ContentNotesAdapte
 
 
     public void setItemClickListener(OnItemClickListener onItemClickListener) {
-        this.itemClickListener =  onItemClickListener;
+        this.itemClickListener = onItemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(View view, int position, int resources);
     }
 
@@ -57,6 +57,7 @@ public class ContentNotesAdapter extends RecyclerView.Adapter<ContentNotesAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nameNote;
         private TextView data;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameNote = itemView.findViewById(R.id.noteName);
@@ -64,16 +65,16 @@ public class ContentNotesAdapter extends RecyclerView.Adapter<ContentNotesAdapte
             data.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(itemClickListener != null){
-                        itemClickListener.onItemClick(view, getAdapterPosition(), R.id.noteDate );
+                    if (itemClickListener != null) {
+                        itemClickListener.onItemClick(view, getAdapterPosition(), R.id.noteDate);
                     }
                 }
             });
             nameNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(itemClickListener != null){
-                        itemClickListener.onItemClick(view, getAdapterPosition(), R.id.noteName );
+                    if (itemClickListener != null) {
+                        itemClickListener.onItemClick(view, getAdapterPosition(), R.id.noteName);
                     }
                 }
             });

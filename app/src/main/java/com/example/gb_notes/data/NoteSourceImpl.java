@@ -7,17 +7,19 @@ import com.example.gb_notes.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteSourceImpl implements NoteSource{
+public class NoteSourceImpl implements NoteSource {
     private List<Note> noteList;
     private Resources resources;
-    public NoteSourceImpl(Resources resources){
+
+    public NoteSourceImpl(Resources resources) {
         this.resources = resources;
         noteList = new ArrayList<Note>();
     }
-    public NoteSourceImpl init(){
+
+    public NoteSourceImpl init() {
         String[] titles = resources.getStringArray(R.array.noteName);
         String[] descriptions = resources.getStringArray(R.array.noteDescription);
-        for (int i = 0; i < titles.length ; i++) {
+        for (int i = 0; i < titles.length; i++) {
             noteList.add(new Note(titles[i], descriptions[i], i));
         }
         return this;

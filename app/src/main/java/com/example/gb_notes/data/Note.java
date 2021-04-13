@@ -3,6 +3,7 @@ package com.example.gb_notes.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.Date;
 
 public class Note implements Parcelable {
@@ -11,7 +12,8 @@ public class Note implements Parcelable {
     private final String description;
     private final int position;
     private boolean done;
-    public Note(String name, String description, int position){
+
+    public Note(String name, String description, int position) {
         date = new Date();
         this.name = name;
         this.description = description;

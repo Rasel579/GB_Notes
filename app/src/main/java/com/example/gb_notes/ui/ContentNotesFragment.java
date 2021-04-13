@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -45,7 +46,6 @@ public class ContentNotesFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class ContentNotesFragment extends Fragment {
     private void initList(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycle_view_layout);
         NoteSource noteSource = new NoteSourceImpl(getResources()).init();
-    //    recyclerView.setHasFixedSize(true);
+        //    recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         final ContentNotesAdapter contentNotesAdapter = new ContentNotesAdapter(noteSource);
@@ -71,7 +71,7 @@ public class ContentNotesFragment extends Fragment {
         contentNotesAdapter.setItemClickListener(new ContentNotesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, int resources) {
-                if (resources == R.id.noteDate){
+                if (resources == R.id.noteDate) {
                     initPopup(view, noteSource.getNote(position), position);
                 } else {
                     currentNote = noteSource.getNote(position);
@@ -87,14 +87,14 @@ public class ContentNotesFragment extends Fragment {
         activity.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(menuItem -> {
             int id = menuItem.getItemId();
-            switch (id){
+            switch (id) {
                 case R.id.changePopup:
                     showUpdateFragment(note, position);
                     return true;
                 case R.id.donePopup:
                     Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
-                    return  true;
-                case  R.id.deletePopup:
+                    return true;
+                case R.id.deletePopup:
                     Toast.makeText(getContext(), "Delete", Toast.LENGTH_SHORT).show();
                     return true;
             }
@@ -120,23 +120,23 @@ public class ContentNotesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             currentNote = savedInstanceState.getParcelable(ARG_NOTE);
         } else {
             currentNote = new Note(getResources().getStringArray(R.array.noteName)[0], getResources().getStringArray(R.array.noteDescription)[0], 0);
         }
 
-        if (isLandscape){
+        if (isLandscape) {
             showLandDescription(currentNote);
         }
 
     }
 
     private void showDescriptionNote(Note currentNote) {
-        if (isLandscape){
+        if (isLandscape) {
             showLandDescription(currentNote);
 
-        } else{
+        } else {
             showPortDescription(currentNote);
         }
 
@@ -149,14 +149,14 @@ public class ContentNotesFragment extends Fragment {
     private void initFragmentTransaction(Note currentNote, boolean isLandscape) {
         DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(currentNote);
         int viewId = isLandscape ? R.id.descriptionNoteFrgLand : R.id.contentListFragment;
-        FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(viewId, descriptionNoteFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
     }
 
-    private void  initFragmentTransaction(Note currentNote, int position){
+    private void initFragmentTransaction(Note currentNote, int position) {
         UpdateFragment updateFragment = UpdateFragment.newInstance(currentNote, position);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -166,7 +166,7 @@ public class ContentNotesFragment extends Fragment {
     }
 
     private void showPortDescription(Note currentNote) {
-     initFragmentTransaction(currentNote, isLandscape);
+        initFragmentTransaction(currentNote, isLandscape);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class ContentNotesFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_add:
                 Toast.makeText(getContext(), "Add", Toast.LENGTH_SHORT).show();
                 return true;

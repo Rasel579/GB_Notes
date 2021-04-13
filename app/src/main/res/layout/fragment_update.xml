@@ -4,35 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.UpdateFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/dateUpdateNote"
-            android:layout_marginTop="@dimen/updateMarginTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textSize"/>
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/updateInputNameNote"
-            android:layout_marginTop="@dimen/updateMarginTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textSize" />
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/updateInputDescriptionNote"
-            android:layout_marginTop="@dimen/updateMarginTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textSize" />
+
         <Button
             android:id="@+id/updateBtn"
-            android:layout_marginTop="@dimen/updateMarginTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/updateMarginTop"
             android:text="@string/updateBtnText"
-            android:textSize="@dimen/textSize"/>
+            android:textSize="@dimen/textSize" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/updateInputDescriptionNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/updateMarginTop"
+            android:textSize="@dimen/textSize" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/updateInputNameNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/updateMarginTop"
+            android:textSize="@dimen/textSize" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dateUpdateNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/updateMarginTop"
+            android:textSize="@dimen/textSize" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
