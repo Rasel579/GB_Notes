@@ -13,8 +13,8 @@ public class Note implements Parcelable {
     private final int position;
     private boolean done;
 
-    public Note(String name, String description, int position) {
-        date = new Date();
+    public Note(String name, String description, int position, Date date) {
+        this.date = date;
         this.name = name;
         this.description = description;
         this.position = position;

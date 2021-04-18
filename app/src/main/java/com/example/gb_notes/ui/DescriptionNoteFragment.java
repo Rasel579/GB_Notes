@@ -76,13 +76,11 @@ public class DescriptionNoteFragment extends Fragment {
         System.out.println(getArguments() + " preOnCreateView");
         TextView nameTextView = view.findViewById(R.id.nameOfNoteForDescription);
         TextView textDescriptionView = view.findViewById(R.id.textDescription);
-        if (getArguments() == null) {
+        if (getArguments() != null) {
             //nothing
-        } else {
             nameTextView.setText(note.getName());
             textDescriptionView.setText(note.getDescription());
         }
-
     }
 
     @Override

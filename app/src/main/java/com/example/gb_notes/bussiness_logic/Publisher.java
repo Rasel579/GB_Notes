@@ -18,7 +18,8 @@ public class Publisher {
     }
     public void notify(Note note){
         for (Observer observer : observers) {
-            observer.updateListOfFragments(note);
+            observer.updateNoteSource(note);
+            unSubscribe(observer);
         }
     }
 }

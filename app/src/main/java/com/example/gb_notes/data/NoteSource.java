@@ -5,5 +5,8 @@ public interface NoteSource {
 
     int size();
 
-    void changeNote(Note note, int position);
+    void updateNote(Note note, int position);
+    void addNote(Note note);
+    void removeNote(int position);
+
 }

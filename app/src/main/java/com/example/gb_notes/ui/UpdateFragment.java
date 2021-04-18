@@ -1,17 +1,27 @@
 package com.example.gb_notes.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.gb_notes.MainActivity;
 import com.example.gb_notes.R;
+import com.example.gb_notes.bussiness_logic.Publisher;
+import com.example.gb_notes.data.Navigation;
 import com.example.gb_notes.data.Note;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +37,12 @@ public class UpdateFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private Note note;
-    private int position;
+    private  Navigation navigation;
+    private Publisher publisher;
+
+    private TextInputEditText nameTextInput;
+    private TextInputEditText descriptionTextInput;
+    private DatePicker datePicker;
 
     public UpdateFragment() {
         // Required empty public constructor
@@ -51,13 +66,31 @@ public class UpdateFragment extends Fragment {
         return fragment;
     }
 
+    public static UpdateFragment newInstance(){
+        UpdateFragment fragment = new UpdateFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             note = getArguments().getParcelable(ARG_NOTE);
-            position = getArguments().getInt(ARG_POSITION);
+            int position = getArguments().getInt(ARG_POSITION);
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        MainActivity mainActivity = (MainActivity) context;
+        publisher = mainActivity.getPublisher();
+    }
+
+    @Override
+    public void onDetach() {
+        publisher = null;
+        super.onDetach();
     }
 
     @Override
@@ -65,14 +98,62 @@ public class UpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_update, container, false);
-        TextView dateView = view.findViewById(R.id.dateUpdateNote);
-        TextInputEditText updateNameTextView = view.findViewById(R.id.updateInputNameNote);
-        TextInputEditText updateDescriptionTextView = view.findViewById(R.id.updateInputDescriptionNote);
-        dateView.setText(String.valueOf(note.getDate()));
-        updateNameTextView.setText(note.getName());
-        updateDescriptionTextView.setText(note.getDescription());
+        initView(view);
+        if (note != null){
+            setNoteView();
+        }
         return view;
     }
 
+    private void initView(View view) {
+        datePicker = view.findViewById(R.id.dateUpdateNote);
+        nameTextInput = view.findViewById(R.id.updateInputNameNote);
+        descriptionTextInput = view.findViewById(R.id.updateInputDescriptionNote);
+        Button updateBtn = view.findViewById(R.id.updateBtn);
+        updateBtn.setOnClickListener(view1 -> {
+            MainActivity activity = (MainActivity) getActivity();
+            navigation = activity.getNavigation();
+            navigation.addFragment(ContentNotesFragment.newInstance(new Note(nameTextInput.getText().toString(), descriptionTextInput.getText().toString(), 0, getDateFromDatePicker()),0), true);
+        });
 
+    }
+
+    private void setNoteView() {
+        initDatePicker(note.getDate());
+        nameTextInput.setText(note.getName());
+        descriptionTextInput.setText(note.getDescription());
+    }
+
+    private void initDatePicker(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        this.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), null);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        note = collectNote();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        publisher.notify(note);
+    }
+
+    private Note collectNote() {
+        String name = this.nameTextInput.getText().toString();
+        String description = this.descriptionTextInput.getText().toString();
+        Date date = getDateFromDatePicker();
+        return new Note(name, description, 0, date);
+    }
+
+    private Date getDateFromDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, this.datePicker.getYear());
+        calendar.set(Calendar.MONTH, this.datePicker.getMonth());
+        calendar.set(Calendar.DAY_OF_MONTH, this.datePicker.getDayOfMonth());
+        return  calendar.getTime();
+    }
 }

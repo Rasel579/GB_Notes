@@ -22,4 +22,9 @@
     <string name="close_navigation_toolbar">Close Navigation ToolBar</string>
     <string name="nav_header_about_profile_text">Something About Me</string>
     <string name="updateBtnText">Update</string>
+    <string name="dateUpdateFgmntText">Date</string>
+    <string name="input_note_name_text">Input Note Name</string>
+    <string name="input_desscription">input desscription</string>
+    <string name="add_context">ADD</string>
+    <string name="update_context">UPDATE</string>
 </resources>

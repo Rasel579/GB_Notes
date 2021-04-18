@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import com.example.gb_notes.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class NoteSourceImpl implements NoteSource {
@@ -20,7 +21,7 @@ public class NoteSourceImpl implements NoteSource {
         String[] titles = resources.getStringArray(R.array.noteName);
         String[] descriptions = resources.getStringArray(R.array.noteDescription);
         for (int i = 0; i < titles.length; i++) {
-            noteList.add(new Note(titles[i], descriptions[i], i));
+            noteList.add(new Note(titles[i], descriptions[i], i, Calendar.getInstance().getTime()));
         }
         return this;
     }
@@ -36,7 +37,17 @@ public class NoteSourceImpl implements NoteSource {
     }
 
     @Override
-    public void changeNote(Note note, int position) {
+    public void updateNote(Note note, int position) {
         noteList.set(position, note);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        noteList.add(note);
+    }
+
+    @Override
+    public void removeNote(int position) {
+          noteList.remove(position);
     }
 }

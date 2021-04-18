@@ -20,11 +20,13 @@ import android.widget.Toast;
 
 import com.example.gb_notes.bussiness_logic.GetPublisher;
 import com.example.gb_notes.bussiness_logic.Publisher;
+import com.example.gb_notes.data.Navigation;
 import com.example.gb_notes.ui.ContentNotesFragment;
 import com.example.gb_notes.ui.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements GetPublisher {
+    private Navigation navigation;
     private boolean isLandscape;
     private Publisher publisher = new Publisher();
 
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initContentNotesFragment(new ContentNotesFragment());
+        navigation = new Navigation(getSupportFragmentManager());
+        this.getNavigation().addFragment(ContentNotesFragment.newInstance(), false);
         initView();
     }
 
@@ -56,22 +59,19 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.action_settings_drawer:
-                        addFragment(new SettingsFragment());
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        return true;
-                    case R.id.action_main_drawer:
-                        addFragment(new ContentNotesFragment());
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        return true;
-                }
-                return false;
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            switch (id) {
+                case R.id.action_settings_drawer:
+                    getNavigation().addFragment(SettingsFragment.newInstance("string", "string2"), false);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return true;
+                case R.id.action_main_drawer:
+                    getNavigation().addFragment(ContentNotesFragment.newInstance(), false);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return true;
             }
+            return false;
         });
     }
 
@@ -103,33 +103,28 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
         int id = item.getItemId();
         switch (id) {
             case R.id.settingsMenu:
-                addFragment(new SettingsFragment());
+                getNavigation().addFragment(SettingsFragment.newInstance("string", "string2"), false);
                 return true;
             case R.id.main_menu:
-                addFragment(new ContentNotesFragment());
+                getNavigation().addFragment(ContentNotesFragment.newInstance(), false);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void addFragment(Fragment settingsFragment) {
-        initFragmentTransaction(settingsFragment);
-    }
-
-    private void initContentNotesFragment(Fragment contentNotesFragment) {
-        initFragmentTransaction(contentNotesFragment);
-    }
-
-    private void initFragmentTransaction(Fragment fragment) {
-        int viewOrientation = isLandscape ? R.id.contentListFragment : R.id.contentListFragment;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contentListFragment, fragment);
-        fragmentTransaction.commit();
-    }
-
     @Override
     public Publisher getPublisher() {
         return publisher;
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    public Navigation getNavigation() {
+        return navigation;
     }
 }
