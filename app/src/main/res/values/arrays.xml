@@ -21,4 +21,5 @@
         <item>Описание Дело 4</item>
         <item>Описание Дело 5</item>
     </string-array>
+    <integer name="com_vk_sdk_AppId">7833180</integer>
 </resources>

@@ -25,9 +25,13 @@ public class ContentNotesAdapter extends RecyclerView.Adapter<ContentNotesAdapte
     private OnItemClickListener itemClickListener;
     private int menuPosition;
 
-    public ContentNotesAdapter(NoteSource noteSource , Fragment fragment) {
-        this.noteSource = noteSource;
+    public ContentNotesAdapter(Fragment fragment) {
         this.fragment = fragment;
+    }
+
+    public void setNoteSource(NoteSource noteSource){
+        this.noteSource = noteSource;
+        notifyDataSetChanged();
     }
 
 

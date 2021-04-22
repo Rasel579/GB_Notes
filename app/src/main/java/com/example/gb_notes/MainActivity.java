@@ -23,6 +23,7 @@ import com.example.gb_notes.bussiness_logic.Publisher;
 import com.example.gb_notes.data.Navigation;
 import com.example.gb_notes.ui.ContentNotesFragment;
 import com.example.gb_notes.ui.SettingsFragment;
+import com.example.gb_notes.ui.StartFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements GetPublisher {
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements GetPublisher {
                 getNavigation().addFragment(SettingsFragment.newInstance("string", "string2"), false);
                 return true;
             case R.id.main_menu:
-                getNavigation().addFragment(ContentNotesFragment.newInstance(), false);
+                getNavigation().addFragment(StartFragment.newInstance(), false);
                 return true;
         }
         return super.onOptionsItemSelected(item);

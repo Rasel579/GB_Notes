@@ -35,7 +35,9 @@ import com.example.gb_notes.bussiness_logic.Publisher;
 import com.example.gb_notes.data.Navigation;
 import com.example.gb_notes.data.Note;
 import com.example.gb_notes.data.NoteSource;
+import com.example.gb_notes.data.NoteSourceFirebaseImpl;
 import com.example.gb_notes.data.NoteSourceImpl;
+import com.example.gb_notes.data.NoteSourceResponse;
 
 import java.util.Date;
 
@@ -55,7 +57,7 @@ public class ContentNotesFragment extends Fragment {
     private Publisher publisher;
     private ContentNotesAdapter contentNotesAdapter;
     private static final String ARG_POSITION = "position";
-    private boolean moveToLastPosition;
+    private boolean moveToFirstPosition;
 
     public ContentNotesFragment() {
         // Required empty public constructor
@@ -74,23 +76,16 @@ public class ContentNotesFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        noteSource = new NoteSourceImpl(getResources()).init();
-        if(getArguments() != null){
-            currentNote = getArguments().getParcelable(ARG_NOTE);
-            int position = getArguments().getInt(ARG_POSITION);
-            noteSource.addNote(currentNote);
-        }
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_content_notes, container, false);
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_content_notes, container, false);
+
+        return view;
     }
 
     @Override
@@ -112,6 +107,14 @@ public class ContentNotesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view);
+        noteSource = new NoteSourceFirebaseImpl().init(new NoteSourceResponse() {
+            @Override
+            public void initialized(NoteSource noteData) {
+                contentNotesAdapter.notifyDataSetChanged();
+            }
+        });
+        contentNotesAdapter.setNoteSource(noteSource);
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -120,7 +123,7 @@ public class ContentNotesFragment extends Fragment {
         //    recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-         contentNotesAdapter = new ContentNotesAdapter(noteSource, this);
+         contentNotesAdapter = new ContentNotesAdapter(this);
         recyclerView.setAdapter(contentNotesAdapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
@@ -131,9 +134,9 @@ public class ContentNotesFragment extends Fragment {
         animator.setAddDuration(1000);
         animator.setRemoveDuration(1000);
         recyclerView.setItemAnimator(animator);
-        if(moveToLastPosition){
-            recyclerView.smoothScrollToPosition(noteSource.size() - 1);
-            moveToLastPosition = false;
+        if(moveToFirstPosition && noteSource.size() > 0){
+            recyclerView.smoothScrollToPosition(0);
+            moveToFirstPosition = false;
         }
 
 
@@ -177,7 +180,7 @@ public class ContentNotesFragment extends Fragment {
             public void updateNoteSource(Note note) {
                 noteSource.updateNote(note, position);
                 contentNotesAdapter.notifyItemChanged(position);
-                moveToLastPosition  = true;
+                moveToFirstPosition  = true;
             }
         });
     }
@@ -234,8 +237,8 @@ public class ContentNotesFragment extends Fragment {
             @Override
             public void updateNoteSource(Note note) {
                 noteSource.addNote(note);
-                contentNotesAdapter.notifyItemChanged(noteSource.size() - 1);
-                moveToLastPosition= true;
+                contentNotesAdapter.notifyItemInserted(noteSource.size() - 1);
+                moveToFirstPosition= true;
             }
         });
     }

@@ -17,11 +17,14 @@ public class NoteSourceImpl implements NoteSource {
         noteList = new ArrayList<Note>();
     }
 
-    public NoteSourceImpl init() {
+    public NoteSource init(NoteSourceResponse noteSourceResponse) {
         String[] titles = resources.getStringArray(R.array.noteName);
         String[] descriptions = resources.getStringArray(R.array.noteDescription);
         for (int i = 0; i < titles.length; i++) {
             noteList.add(new Note(titles[i], descriptions[i], i, Calendar.getInstance().getTime()));
+        }
+        if (noteSourceResponse != null){
+            noteSourceResponse.initialized(this);
         }
         return this;
     }
@@ -30,6 +33,8 @@ public class NoteSourceImpl implements NoteSource {
     public Note getNote(int position) {
         return noteList.get(position);
     }
+
+
 
     @Override
     public int size() {

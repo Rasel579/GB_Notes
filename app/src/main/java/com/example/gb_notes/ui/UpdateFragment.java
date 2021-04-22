@@ -146,6 +146,12 @@ public class UpdateFragment extends Fragment {
         String name = this.nameTextInput.getText().toString();
         String description = this.descriptionTextInput.getText().toString();
         Date date = getDateFromDatePicker();
+        if(note != null){
+            Note answer;
+            answer = new Note(name, description, note.getPosition(), date);
+            answer.setId(note.getId());
+            return answer;
+        }
         return new Note(name, description, 0, date);
     }
 
