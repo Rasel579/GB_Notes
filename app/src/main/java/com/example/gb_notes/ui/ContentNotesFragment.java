@@ -3,7 +3,9 @@ package com.example.gb_notes.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ import com.example.gb_notes.data.NoteSource;
 import com.example.gb_notes.data.NoteSourceFirebaseImpl;
 import com.example.gb_notes.data.NoteSourceImpl;
 import com.example.gb_notes.data.NoteSourceResponse;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.Date;
 
@@ -114,7 +117,6 @@ public class ContentNotesFragment extends Fragment {
             }
         });
         contentNotesAdapter.setNoteSource(noteSource);
-
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -127,7 +129,7 @@ public class ContentNotesFragment extends Fragment {
         recyclerView.setAdapter(contentNotesAdapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
-        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.nav_bar_side, null));
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.common_google_signin_btn_text_dark_normal_background, null));
         recyclerView.addItemDecoration(itemDecoration);
 
         DefaultItemAnimator animator = new DefaultItemAnimator();
@@ -143,11 +145,26 @@ public class ContentNotesFragment extends Fragment {
         contentNotesAdapter.setItemClickListener((view1, position, resources) -> {
             if (resources == R.id.noteDate) {
                 initPopup(view1, noteSource.getNote(position), position);
-            } else {
+             } else if(resources == R.id.deleteBtn){
+                currentNote = noteSource.getNote(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.titleDeleteDialog)
+                        .setMessage(R.string.deleteTxtBtn)
+                        .setNegativeButton("No", null);
+                builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                    noteSource.removeNote(position);
+                    navigation.addFragment(ContentNotesFragment.newInstance(), true);
+                    contentNotesAdapter.notifyDataSetChanged();
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+            else {
                 currentNote = noteSource.getNote(position);
                 showDescriptionNote(currentNote);
             }
         });
+
     }
 
     private void initPopup(View view1, Note note, int position) {
@@ -164,7 +181,9 @@ public class ContentNotesFragment extends Fragment {
                     Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.deletePopup:
-                    Toast.makeText(getContext(), "Delete", Toast.LENGTH_SHORT).show();
+                     noteSource.removeNote(position);
+                     contentNotesAdapter.notifyDataSetChanged();
+                     moveToFirstPosition = true;
                     return true;
             }
             return true;
@@ -227,6 +246,7 @@ public class ContentNotesFragment extends Fragment {
             case R.id.action_add:
                 addFragment();
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -265,4 +285,5 @@ public class ContentNotesFragment extends Fragment {
         }
         return super.onContextItemSelected(item);
     }
+
 }

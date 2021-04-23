@@ -29,4 +29,7 @@
     <string name="update_context">UPDATE</string>
     <string name="continue_">continue</string>
     <string name="sign_out">Sign Out</string>
+    <string name="deleteTxtBtn">Delete</string>
+    <string name="titleDeleteDialog">Удалить запись</string>
+    <string name="msgDeleteDialog">Вы действительно хотите удалить?</string>
 </resources>

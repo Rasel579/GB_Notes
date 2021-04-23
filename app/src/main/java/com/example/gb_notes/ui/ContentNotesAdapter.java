@@ -1,5 +1,7 @@
 package com.example.gb_notes.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.example.gb_notes.R;
 import com.example.gb_notes.data.Note;
 import com.example.gb_notes.data.NoteSource;
+import com.google.android.material.button.MaterialButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -72,11 +75,18 @@ public class ContentNotesAdapter extends RecyclerView.Adapter<ContentNotesAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nameNote;
         private TextView data;
+        private MaterialButton button;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameNote = itemView.findViewById(R.id.noteName);
             data = itemView.findViewById(R.id.noteDate);
+            button = itemView.findViewById(R.id.deleteBtn);
+            button.setOnClickListener(view -> {
+               if(itemClickListener != null){
+                   itemClickListener.onItemClick(view, getAdapterPosition(), R.id.deleteBtn);
+               }
+            });
             registerContextMenu(itemView);
             data.setOnLongClickListener(new View.OnLongClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -87,12 +97,9 @@ public class ContentNotesAdapter extends RecyclerView.Adapter<ContentNotesAdapte
                     return true;
                 }
             });
-            data.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (itemClickListener != null) {
-                        itemClickListener.onItemClick(view, getAdapterPosition(), R.id.noteDate);
-                    }
+            data.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(view, getAdapterPosition(), R.id.noteDate);
                 }
             });
             nameNote.setOnClickListener(view -> {

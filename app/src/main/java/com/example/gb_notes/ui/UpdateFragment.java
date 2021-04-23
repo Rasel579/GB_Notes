@@ -3,7 +3,10 @@ package com.example.gb_notes.ui;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -28,7 +31,7 @@ import java.util.Date;
  * Use the {@link UpdateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpdateFragment extends Fragment {
+public class UpdateFragment extends DialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -111,9 +114,7 @@ public class UpdateFragment extends Fragment {
         descriptionTextInput = view.findViewById(R.id.updateInputDescriptionNote);
         Button updateBtn = view.findViewById(R.id.updateBtn);
         updateBtn.setOnClickListener(view1 -> {
-            MainActivity activity = (MainActivity) getActivity();
-            navigation = activity.getNavigation();
-            navigation.addFragment(ContentNotesFragment.newInstance(new Note(nameTextInput.getText().toString(), descriptionTextInput.getText().toString(), 0, getDateFromDatePicker()),0), true);
+           requireActivity().onBackPressed();
         });
 
     }

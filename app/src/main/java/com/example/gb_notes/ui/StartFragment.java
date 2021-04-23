@@ -108,13 +108,13 @@ public class StartFragment extends Fragment {
 
     private void initView(View view) {
         signInButton = view.findViewById(R.id.sign_in_button);
-        vkSignInButton = view.findViewById(R.id.vk_sign_in_btn);
-        vkSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vkSignIn();
-            }
-        });
+//        vkSignInButton = view.findViewById(R.id.vk_sign_in_btn);
+//        vkSignInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                vkSignIn();
+//            }
+//        });
         signInButton.setOnClickListener(view1 -> signIn());
         emailView = view.findViewById(R.id.email);
         continue_ = view.findViewById(R.id.continue_);
